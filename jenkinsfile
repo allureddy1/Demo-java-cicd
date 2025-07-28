@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Chinthammanoj/demo-java-cicd.git'
+                git 'https://github.com/Chinthammanoj/Demo-java-cicd.git'
             }
         }
 
