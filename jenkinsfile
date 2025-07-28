@@ -2,48 +2,43 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.7'  // Configure in Jenkins global tools
-    }
-stage('Checkout') {
-  steps {
-    git branch: 'main', url: 'https://github.com/Chinthammanoj/Demo-java-cicd.git'
-  }
-}
-    environment {
-        IMAGE_NAME = 'my-java-app'
+        maven 'Maven 3.8.1'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Chinthammanoj/Demo-java-cicd.git'
+                git branch: 'main', url: 'https://github.com/Chinthammanoj/Demo-java-cicd.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                sh 'mvn clean install'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('My SonarQube Server') {
-                    sh 'mvn clean verify sonar:sonar'
+                withSonarQubeEnv('MySonar') {
+                    sh 'mvn sonar:sonar'
                 }
-            }
-        }
-
-        stage('Build JAR') {
-            steps {
-                sh 'mvn clean package'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh 'docker build -t my-java-app .'
             }
         }
 
         stage('Docker Run') {
             steps {
-                sh 'docker run -d -p 8080:8080 $IMAGE_NAME'
+                sh 'docker run -d -p 8080:8080 my-java-app'
             }
         }
     }
 }
+
+        
+       
