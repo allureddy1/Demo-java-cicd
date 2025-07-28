@@ -4,7 +4,11 @@ pipeline {
     tools {
         maven 'Maven 3.8.7'  // Configure in Jenkins global tools
     }
-
+stage('Checkout') {
+  steps {
+    git branch: 'main', url: 'https://github.com/Chinthammanoj/Demo-java-cicd.git'
+  }
+}
     environment {
         IMAGE_NAME = 'my-java-app'
     }
