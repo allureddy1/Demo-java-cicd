@@ -31,6 +31,13 @@ pipeline {
                 sh 'docker build -t my-java-app .'
             }
         }
+   stage('Test') {
+    steps {
+        echo "Before command"
+        sh 'your-command-here'
+        echo "After command"
+    }
+}
 
         stage('Docker Run') {
             steps {
