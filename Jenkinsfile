@@ -47,6 +47,15 @@ pipeline {
             }
         }
 
+        stage('Trivy Scan') {
+            steps {
+                sh """
+                    # Run the Trivy scan on the built image
+                    trivy image --exit-code 0 --severity HIGH,CRITICAL ${IMAGE_NAME}:${IMAGE_TAG}
+                """
+            }
+        }
+
         stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(
@@ -64,15 +73,13 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                script {
-                    sh """
-                        # Stop and remove existing container (if any)
-                        docker rm -f demo-java-container || true
+                sh """
+                    # Stop and remove existing container (if any)
+                    docker rm -f demo-java-container || true
 
-                        # Run new container with the same image
-                        docker run -d --name demo-java-container -p 8081:8080 ${IMAGE_NAME}:${IMAGE_TAG}
-                    """
-                }
+                    # Run new container
+                    docker run -d --name demo-java-container -p 8081:8080 ${IMAGE_NAME}:${IMAGE_TAG}
+                """
             }
         }
     }
