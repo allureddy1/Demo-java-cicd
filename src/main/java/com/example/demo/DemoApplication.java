@@ -14,7 +14,7 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String hello() {
-        return "Hello from Java CI/CD!";
+        return "Hello from Java CI/CD! - First Demo";
     }
 }
 
