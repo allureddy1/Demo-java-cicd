@@ -4,16 +4,33 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  branches:
+    include:
+      - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: Ashok-Self
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - task: SonarQubePrepare@5
+    inputs:
+      SonarQube: 'SonarQube'
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: 'your-project-key'
+      cliProjectName: 'your-project-name'
+      cliSources: '.'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - task: Maven@4
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean install sonar:sonar'
+      options: '-X'
+      javaHomeOption: 'Path'
+      jdkDirectory: '/usr/lib/jvm/java-11-openjdk-amd64'
+    displayName: 'Maven Build with Sonar Scan'
+
+  - task: SonarQubePublish@5
+    inputs:
+      pollingTimeoutSec: '300'
+
