@@ -1,0 +1,21 @@
+---
+- name: Deploy WAR from Jenkins to Tomcat server
+  hosts: tomcat_servers     # Inventory group name
+  become: yes
+  vars:
+    war_file: demo.war
+    war_src_path: "{{ lookup('env', 'WORKSPACE') }}/target/{{ war_file }}"
+    tomcat_webapps_path: /opt/tomcat/webapps
+    tomcat_service_name: tomcat   # Change if your service name is tomcat9/tomcat10
+
+  tasks:
+    - name: Copy WAR file to Tomcat webapps directory
+      copy:
+        src: "{{ war_src_path }}"
+        dest: "{{ tomcat_webapps_path }}/{{ war_file }}"
+        mode: '0644'
+
+    - name: Restart Tomcat service
+      systemd:
+        name: "{{ tomcat_service_name }}"
+        state: restarted
