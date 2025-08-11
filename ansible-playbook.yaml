@@ -5,7 +5,7 @@
   vars:
     war_file: demo.war
     war_src_path: "{{ lookup('env', 'WORKSPACE') }}/target/{{ war_file }}"
-    tomcat_webapps_path: /opt/tomcat/webapps
+    tomcat_webapps_path: /opt/tomcat9/webapps
     tomcat_service_name: tomcat   # Change if your service name is tomcat9/tomcat10
 
   tasks:
