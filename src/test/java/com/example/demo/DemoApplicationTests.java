@@ -20,7 +20,7 @@ public class DemoApplicationTests {
     @Test
     void helloEndpointReturnsExpectedMessage() {
         String response = this.restTemplate.getForObject("http://localhost:" + port + "/", String.class);
-        assertThat(response).isEqualTo("Hello from Java CI/CD! - First Demo in Jenkins");
+        assertThat(response).isEqualTo("Deploying the application Using in K8S using Argo CD");
     }
 }
 
