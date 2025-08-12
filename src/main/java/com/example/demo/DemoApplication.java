@@ -14,7 +14,7 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String hello() {
-        return "Deploying the application Using in K8S using Argo CD";
+        return "Deploying the application in K8S using Argo CD";
     }
 }
 
