@@ -17,7 +17,7 @@ spec:
         app: springapi
     spec:
       containers:
-        - image: allureddy/k8s-java-cicd:3
+        - image: allureddy/k8s-java-cicd:6
           name: springapi
           resources: {}
 status: {}
