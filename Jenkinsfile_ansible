@@ -21,8 +21,7 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 sh '''
-                    export ANSIBLE_HOST_KEY_CHECKING=False
-                    ansible-playbook -i /etc/ansible/hosts ansible-playbook.yaml
+                    ansible-playbook ansible_Docker.yaml
                 '''
             }
         }
