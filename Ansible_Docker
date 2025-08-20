@@ -1,17 +1,21 @@
 ---
 - name: Build and Run Docker Container
   hosts: localhost
+  connection: local
+  gather_facts: no
+
   tasks:
     - name: Build Docker image
-      docker_image:
+      community.docker.docker_image:
         name: myapp
         tag: latest
+        source: build
         build:
-          path: "/var/lib/jenkins/workspace/Ansible_Docker
-          dockerfile: Dockerfile.
- 
+          path: "/var/lib/jenkins/workspace/Ansible_Docker"
+          dockerfile: Dockerfile
+
     - name: Run Docker container
-      docker_container:
+      community.docker.docker_container:
         name: myapp_container
         image: myapp:latest
         state: started
