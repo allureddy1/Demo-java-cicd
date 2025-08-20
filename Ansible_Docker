@@ -1,6 +1,6 @@
 ---
 - name: Build and Run Docker Container
-  hosts: all
+  hosts: localhost
   become: yes
   tasks:
     - name: Build Docker image
