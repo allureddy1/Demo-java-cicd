@@ -20,7 +20,7 @@ public class DemoApplicationTests {
     @Test
     void helloEndpointReturnsExpectedMessage() {
         String response = this.restTemplate.getForObject("http://localhost:" + port + "/", String.class);
-        assertThat(response).isEqualTo("Deploying the application in K8S using Argo CD");
+        assertThat(response).isEqualTo("Deploying container using Ansible");
     }
 }
 
