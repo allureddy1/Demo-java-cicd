@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'maven3.9' // Ensure this matches "Global Tool Configuration"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/allureddy1/Demo-java-cicd.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Deploy with Ansible') {
+            steps {
+                dir("${WORKSPACE}") {   // 👈 ensure Dockerfile is visible
+                    sh '''
+                        ansible-playbook Ansible_Docker
+                    '''
+                }
+            }
+        }
+    }
+}
