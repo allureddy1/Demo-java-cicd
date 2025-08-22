@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: springapi
-  name: springapi-deployment
+  name: deployment
 spec:
   replicas: 3
   selector:
@@ -17,7 +17,7 @@ spec:
         app: springapi
     spec:
       containers:
-        - image: allureddy/k8s-java-cicd:12
+        - image: allureddy/demo-java-cicd:latest
           name: springapi
           resources: {}
 status: {}
