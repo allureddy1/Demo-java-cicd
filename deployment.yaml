@@ -25,7 +25,7 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: springapi-service
+  name: springapi
   labels:
     app: springapi-service
 spec:
